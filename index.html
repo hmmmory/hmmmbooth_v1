@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>hmmmbooth v4</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="videoContainer">
+  <video id="video" autoplay playsinline muted></video>
+</div>
+
+<div class="overlay">
+  <div class="ui" id="uiCard">
+    <div class="topmeta">REC • ADJUSTABLE EXP</div>
+    <h1>hmmmbooth</h1>
+    <p>configure your session.</p>
+    
+    <div id="settingsPanel" class="settings">
+      <div class="setting-row">
+        <label>Frames:</label>
+        <select id="cutSelect">
+          <option value="1">1 Cut</option>
+          <option value="2">2 Cuts</option>
+          <option value="3">3 Cuts</option>
+          <option value="4" selected>4 Cuts</option>
+        </select>
+      </div>
+
+      <div class="setting-row">
+        <label>Margin:</label>
+        <select id="marginSelect">
+          <option value="#ffffff">White</option>
+          <option value="#000000" selected>Black</option>
+        </select>
+      </div>
+
+      <div class="setting-row">
+        <label>Filter:</label>
+        <select id="filterSelect">
+          <option value="color">Retro Color</option>
+          <option value="bw" selected>Vintage B&W</option>
+        </select>
+      </div>
+
+      <div class="setting-row">
+        <label>Brightness:</label>
+        <input type="range" id="brightRange" min="0" max="40" value="15">
+      </div>
+
+      <div class="setting-row">
+        <label>Smoothing:</label>
+        <input type="range" id="smoothRange" min="0" max="60" value="18">
+      </div>
+    </div>
+
+    <button id="startBtn">start session</button>
+
+    <div id="previewWrap" class="hidden">
+      <img id="previewImg">
+      <a id="download">save strip</a>
+    </div>
+  </div>
+
+  <div id="status" class="hidden"></div>
+</div>
+
+<canvas id="canvas" hidden></canvas>
+<script src="script.js"></script>
+</body>
+</html>

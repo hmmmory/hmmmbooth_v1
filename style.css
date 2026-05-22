@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght=0,400;0,600;1,400&display=swap');
+
+body {
+  margin: 0;
+  background: #000000; /* Solid cinematic black backdrop */
+  overflow: hidden;
+  font-family: 'Playfair Display', serif;
+  color: #2c251f;
+}
+
+/* Centered fixed camera viewport layout matching film canvas specs */
+#videoContainer {
+  position: fixed;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 380px;  /* Proportional target frame width */
+  height: 350px; /* Proportional target frame height */
+  overflow: hidden;
+  background: #111;
+  box-shadow: 0 0 0 9999px #000000; /* Outer black-out margins masking everything else */
+  z-index: 1;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Default warm color style setup containing horizontal mirror axis flip */
+  transform: scaleX(-1);
+  filter: sepia(0.05) saturate(0.95) contrast(1.05) brightness(1.02);
+  transition: filter 0.2s ease; 
+}
+
+/* Selector forcing the mirror flip AND real-time grayscale transformation curves together */
+#videoContainer video.bw-filter {
+  transform: scaleX(-1) !important;
+  filter: grayscale(1) contrast(1.15) brightness(1.05) !important;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  z-index: 2; 
+}
+
+/* Floating interface container wrapper dashboard card */
+.ui {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 32px;
+  width: 100%;
+  max-width: 360px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: rgba(253, 251, 247, 0.98); 
+  border: 1px solid rgba(184, 159, 125, 0.5);
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.ui::-webkit-scrollbar {
+  width: 4px;
+}
+.ui::-webkit-scrollbar-thumb {
+  background: #b89f7d;
+  border-radius: 4px;
+}
+
+.topmeta {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #b89f7d;
+  margin-bottom: 8px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 3.2rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  font-style: italic;
+  color: #2c251f;
+}
+
+p {
+  color: #5a5047;
+  margin: 5px 0 25px;
+  font-size: 1.1rem;
+}
+
+.settings {
+  width: 100%;
+  background: transparent;
+  padding: 0;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(184, 159, 125, 0.2);
+  padding-bottom: 8px;
+}
+
+.setting-row select, .setting-row input[type="range"] {
+  background: #fdfbf7;
+  color: #2c251f;
+  border: 1px solid #d3c7b6;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-family: 'Playfair Display', serif;
+  width: 130px;
+}
+
+button, #download {
+  background: #2c251f;
+  color: #fdfbf7;
+  border: none;
+  padding: 16px 24px;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  text-decoration: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background 0.3s ease;
+}
+
+button:hover, #download:hover {
+  background: #4a4036;
+}
+
+/* Status text pinned elegantly directly above the top edge bounding border of the viewfinder box */
+#status {
+  position: absolute;
+  top: calc(50% - 175px - 45px); 
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  font-size: 2rem; 
+  font-weight: 600;
+  font-style: italic;
+  color: #fdfbf7;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+  font-family: 'Playfair Display', serif;
+  pointer-events: none;
+  z-index: 10;
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Layout section displaying the finished filmstrip processing preview image results */
+#previewWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  width: 100%;
+}
+
+#previewImg {
+  height: 50vh;
+  width: auto;
+  object-fit: contain;
+  box-shadow: 2px 10px 25px rgba(0, 0, 0, 0.4);
+  background-color: white; 
+}
+
+/* Shutter flash effect layer */
+.flash::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: white;
+  pointer-events: none;
+  animation: flash .15s forwards;
+  z-index: 99;
+}
+
+@keyframes flash {
+  from { opacity: .9; }
+  to { opacity: 0; }
+}
